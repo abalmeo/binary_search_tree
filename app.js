@@ -86,20 +86,88 @@ class BST {
 
     return value;
   }
-  //example ordered binary tree 2, 3, 12, 15, 28, 36, 39
+  /*example ordered binary tree
 
-  // depth first search
+          15
+      3       36
+    2   12  28   39
+
+  */
+
+  // depth first search - looking branch by branch
 
   // in-order
   // left, root, right
-  dfsInOrder() {}
+  // 2, 3, 12, 15, 28, 36, 39
+  dfsInOrder() {
+    let result = [];
+
+    const traverse = node => {
+      // if left child exists, go left again
+      if (node.left) traverse(node.left);
+      // capture root node value
+      result.push(node.value);
+      // if right child exists, go right again
+      if (node.right) traverse(node.right);
+    };
+    return result;
+  }
 
   // pre-order
   // root, left, right
-  dfsPreOrder() {}
+  // 15, 3, 2, 12, 36, 28, 39
+  dfsPreOrder() {
+    let result = [];
+
+    const traverse = node => {
+      // capture root node value
+      result.push(node.value);
+      // if left child exists, go left again
+      if (node.left) traverse(node.left);
+      // if right child exists, go right again
+      if (node.right) traverse(node.right);
+    };
+
+    return result;
+  }
 
   // post-order
-  dfsPostOrder() {}
+  // left, right, root
+  // 2, 12, 3, 28, 36, 39, 15
+  dfsPostOrder() {
+    let result = [];
 
-  // breadth first search
+    const traverse = node => {
+      // if left child exists, go left again
+      if (node.left) traverse(node.left);
+      // if right child exists, go right again
+      if (node.right) traverse(node.right);
+      // capture root node value
+      result.push(node.value);
+    };
+
+    return result;
+  }
+
+  // breadth first search - level by level (USING a QUEUE)
+  // 15, 3, 36, 2, 12, 28, 39
+
+  bfs() {
+    let result = [];
+    let queue = [];
+
+    queue.push(this.root);
+
+    while (queue.length) {
+      let currentNode = queue.shift();
+
+      result.push(currentNode);
+
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+    }
+
+    return result;
+  }
 }
